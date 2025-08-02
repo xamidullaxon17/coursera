@@ -37,6 +37,14 @@ gcov_report: clean
 	@genhtml -o $(TEST_DIR)report $(TEST_DIR)coverage.info
 	@echo "Gcov hisoboti 'tests/report/index.html' da yaratildi."
 
+
+# Misollar faylini tuzish va ishga tushirish
+example: $(TARGET) src/main.c
+	@$(CC) $(CFLAGS) src/main.c -L. -l:$(TARGET) -o example_run
+	@echo "Misol dasturi tuzildi. Ishga tushirilmoqda..."
+	@./example_run
+
+
 # Tuzilgan fayllarni o'chirish
 clean:
 	@rm -f $(TARGET)
@@ -47,5 +55,6 @@ clean:
 	@rm -f $(SOURCE_DIR)*.gcno $(SOURCE_DIR)*.gcda
 	@rm -f $(TEST_DIR)coverage.info
 	@echo "Vaqtinchalik fayllar o'chirildi."
+
 
 .PHONY: all test gcov_report clean
